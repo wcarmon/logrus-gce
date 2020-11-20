@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 type severity string
@@ -76,7 +76,7 @@ func getSkipLevel(level logrus.Level) (int, error) {
 	runtime.Callers(3, stackSkipsCallers)
 	for i, pc := range stackSkipsCallers {
 		f := runtime.FuncForPC(pc)
-		if strings.HasPrefix(f.Name(), "github.com/Sirupsen/logrus") == true {
+		if strings.HasPrefix(f.Name(), "github.com/sirupsen/logrus") == true {
 			continue
 		}
 		stackSkips[level] = i + 1
@@ -99,7 +99,7 @@ func (f *GCEFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 		switch v := v.(type) {
 		case error:
 			// Otherwise errors are ignored by `encoding/json`
-			// https://github.com/Sirupsen/logrus/issues/137
+			// https://github.com/sirupsen/logrus/issues/137
 			data[k] = v.Error()
 		default:
 			data[k] = v
